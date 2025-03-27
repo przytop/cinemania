@@ -275,7 +275,7 @@ html[data-theme='dark'] .modal-oopsie button svg {
     width: 768px;
     height: 432px;
     background-image: url('/img/hero-1-tablet@2x.jpg'),
-      url('/src/img/hero-1-tablet.jpg');
+      url('/img/hero-1-tablet.jpg');
     background-position: 80%;
     margin-bottom: 80px;
   }

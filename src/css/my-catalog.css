@@ -126,7 +126,7 @@ html[data-theme='light'] .page-number-button {
   position: relative;
   width: 280px;
   height: 406px;
-  background-image: url('/img/image.png');
+  /* background-image: url('/img/image.png'); */
   border-radius: 5px;
 }
 
