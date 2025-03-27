@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "vite build --base=/goit-team-project-js-group-1/ --emptyOutDir",
+    "build": "vite build --base=/cinemania/ --emptyOutDir",
     "preview": "vite preview"
   },
   "devDependencies": {
