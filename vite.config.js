@@ -25,7 +25,7 @@ export default defineConfig(({ command }) => {
         external: [],
         plugins: [commonjs()],
       },
-      outDir: './dist',
+      outDir: '../dist',
     },
     optimizeDeps: {
       include: [],
