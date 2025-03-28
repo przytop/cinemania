@@ -26,4 +26,4 @@ import{T as h,o as F,L as x}from"./assets/main-DmtL-5QH.js";import{i as g}from".
       </div>
     </div>
   `;t.innerHTML=c,document.getElementById("library-btn").addEventListener("click",()=>z(e)),w(e.id)}function z(e){const t=e.id;d.getMovies().some(s=>s.id===t)?(d.removeMovie(t),g.info({title:"Info",message:"Removed from my library",backgroundColor:"red",messageSize:"13",closeOnEscape:"true",closeOnClick:"true"})):(d.addMovie(e),g.success({title:"Success",message:"Added to my library",backgroundColor:"orange",messageSize:"13",closeOnEscape:"true",closeOnClick:"true"})),w(t)}function w(e){const t=d.getMovies().some(s=>s.id===e),n=document.getElementById("library-btn");t?n.textContent="Remove from my library":n.textContent="Add to my library"}const L={};M.getMovieGenres().then(e=>{e.forEach(t=>{L[t.id]=t.name}),U()});
-//# sourceMappingURL=commonHelpers2.js.map
+//# sourceMappingURL=index.js.map
