@@ -20,15 +20,20 @@ export default defineConfig(({ command }) => {
               return 'vendor';
             }
           },
-          entryFileNames: 'commonHelpers.js',
+          entryFileNames: chunkInfo => {
+            if (chunkInfo.name === 'commonHelpers') {
+              return 'commonHelpers.js';
+            }
+            return '[name].js';
+          },
         },
-        external: [],
         plugins: [commonjs()],
       },
       outDir: '../dist',
+      emptyOutDir: true,
     },
     optimizeDeps: {
-      include: [],
+      include: ['axios', 'lodash.throttle', 'izitoast', 'modal-video'],
     },
     plugins: [injectHTML(), FullReload(['./src/**/**.html'])],
   };
