@@ -1,5 +1,3 @@
-'use strict';
-
 import TmdbApi from './tmdb-api';
 import LocalMovieManager from './local-movie-manager';
 import iziToast from 'izitoast';

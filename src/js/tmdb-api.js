@@ -1,5 +1,3 @@
-'use strict';
-
 import axios from 'axios';
 
 export default class TmdbApi {
@@ -67,7 +65,7 @@ export default class TmdbApi {
   }
 }
 
-// Testing
+// For testing
 const tmdb = new TmdbApi();
 const test = async () => {
   try {

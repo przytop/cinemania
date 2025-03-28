@@ -1,5 +1,3 @@
-'use strict';
-
 export default class LocalMovieManager {
   constructor(localStorageKey) {
     this.localStorageKey = localStorageKey;
@@ -39,7 +37,7 @@ export default class LocalMovieManager {
   }
 }
 
-// Testing
+// For testing
 const manager = new LocalMovieManager('local-movies');
 const test = async () => {
   const log = () => console.log(manager.getMovies());
