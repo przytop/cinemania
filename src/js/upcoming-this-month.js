@@ -7,7 +7,6 @@ const library = new Library('myLibrary');
 
 async function getUpcomingMovies() {
   const loaderUpcoming = document.getElementById('loader-upcoming');
-  loaderUpcoming.style.display = 'block';
 
   try {
     const movies = await tmdb.getUpcomingMovies();
@@ -19,15 +18,14 @@ async function getUpcomingMovies() {
         releaseDate.getMonth() === today.getMonth()
       );
     });
-    
-    loaderUpcoming.style.display = 'none';
 
     if (thisMonthMovies.length === 0) {
+      loaderUpcoming.style.display = 'none';
       displayMessage('No upcoming movies this month.');
     } else {
       const randomMovie =
         thisMonthMovies[Math.floor(Math.random() * thisMonthMovies.length)];
-
+      loaderUpcoming.style.display = 'none';
       displayMovie(randomMovie);
     }
   } catch (error) {
