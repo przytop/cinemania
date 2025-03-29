@@ -1,11 +1,10 @@
 .loader {
-  display: none;
   position: relative;
   width: 20vmin;
   aspect-ratio: 1;
   background: conic-gradient(transparent, transparent 20%, #f87719);
   border-radius: 50%;
-  margin: auto;
+  margin: 100px auto;
   animation: spin 0.5s linear infinite;
 
   &::before,
@@ -28,10 +27,6 @@
     inset: var(--loader-width);
     background: var(--black-color);
   }
-}
-
-.loader.active {
-  display: block;
 }
 
 @keyframes spin {

@@ -117,6 +117,10 @@ html[data-theme='light'] #genre {
   display: none;
 }
 
+.my-library-sorry {
+  display: none;
+}
+
 .my-library-sorry-message {
   padding-top: 80px;
   font-size: 24px;

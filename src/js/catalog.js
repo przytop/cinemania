@@ -10,6 +10,7 @@ document.addEventListener('DOMContentLoaded', async () => {
   const yearSelect = document.querySelector('.year-select');
   const xButton = document.querySelector('.x-button');
   const pagination = document.querySelector('.pagination-container'); // Container for pagination buttons
+  const loader = document.getElementById('loader-catalog');
 
   const genreAbbreviations = { 'Science Fiction': 'Sci-Fi' };
   let currentPage = 1;
@@ -20,10 +21,12 @@ document.addEventListener('DOMContentLoaded', async () => {
 
   const fetchMovies = async (page = 1, resultsPerPage = 18) => {
     try {
+      loader.style.display = 'block';
       const movies = query
         ? await tmdb.searchMovieTotal(query, page)
         : await tmdb.getTrendingMoviesTotal('week', page);
       totalPages = Math.ceil(movies.total_results / 20); // Calculate total pages
+      loader.style.display = 'none';
       return movies.results.slice(0, resultsPerPage);
     } catch (e) {
       console.error('Error fetching movies:', e);

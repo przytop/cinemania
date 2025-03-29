@@ -4,6 +4,7 @@ import openMovieInfoModal from './modal-window';
 document.addEventListener('DOMContentLoaded', async function () {
   const movieCardsContainer = document.getElementById('weekly-cards');
   const tmdb = new TmdbApi();
+  const loaderWeekly = document.getElementById('loader-weekly');
 
   const genreAbbreviations = {
     'Science Fiction': 'Sci-Fi',
@@ -21,6 +22,8 @@ document.addEventListener('DOMContentLoaded', async function () {
       closeModal();
     }
   });
+
+  loaderWeekly.style.display = 'block';
 
   try {
     const movies = await tmdb.getTrendingMovies('week');
@@ -86,6 +89,7 @@ document.addEventListener('DOMContentLoaded', async function () {
           </div>
         `;
 
+        loaderWeekly.style.display = 'none';
         movieCardsContainer.appendChild(card);
       }
 

@@ -1,6 +1,6 @@
 import TmdbApi from './tmdb-api';
-import openMovieInfoModal from './modal-window';
 import LocalMovieManager from './local-movie-manager';
+import openMovieInfoModal from './modal-window';
 
 document.addEventListener('DOMContentLoaded', async function () {
   const movieListElement = document.querySelector('.my-library-movie-list');
@@ -11,6 +11,7 @@ document.addEventListener('DOMContentLoaded', async function () {
   const searchButton = document.querySelector('#my-library-button-search');
   const lmm = new LocalMovieManager('myLibrary');
   const tmdb = new TmdbApi();
+  const loaderLibrary = document.getElementById('loader-library');
 
   let currentDisplayCount = 0;
   const batchSize = 12;
@@ -149,7 +150,6 @@ document.addEventListener('DOMContentLoaded', async function () {
 
     if (filteredMovies.length > 0) {
       mainSection.style.display = 'block';
-      sorryMessage.style.display = 'none';
       document.querySelector('.genre-form').style.display = 'block';
 
       const moviesToDisplay = filteredMovies.slice(
@@ -158,6 +158,7 @@ document.addEventListener('DOMContentLoaded', async function () {
       );
       moviesToDisplay.forEach(movie => {
         const listItem = createMovieListItem(movie);
+        loaderLibrary.style.display = 'none';
         movieListElement.appendChild(listItem);
       });
 
@@ -172,6 +173,7 @@ document.addEventListener('DOMContentLoaded', async function () {
       searchButton.style.display = 'none';
       searchButton.disabled = true;
     } else {
+      loaderLibrary.style.display = 'none';
       sorryMessage.style.display = 'block';
       mainSection.style.display = 'none';
       document.querySelector('.genre-form').style.display = 'none';
@@ -193,14 +195,15 @@ document.addEventListener('DOMContentLoaded', async function () {
   }
 
   async function updateLibraryView(reset = true) {
+    const loaderLibrary = document.getElementById('loader-library');
+    loaderLibrary.style.display = 'block';
+
     const movies = lmm.getMovies();
 
-    if (reset) {
+    if (reset & (movies.length === 0)) {
+      loaderLibrary.style.display = 'none';
       currentDisplayCount = 0;
       movieListElement.innerHTML = '';
-    }
-
-    if (movies.length === 0) {
       sorryMessage.style.display = 'block';
       loadMoreButton.style.display = 'none';
       mainSection.style.display = 'none';
@@ -209,6 +212,7 @@ document.addEventListener('DOMContentLoaded', async function () {
       searchButton.disabled = false;
       return;
     } else {
+      loaderLibrary.style.display = 'none';
       sorryMessage.style.display = 'none';
       mainSection.style.display = 'block';
       document.querySelector('.genre-form').style.display = 'block';
@@ -236,7 +240,12 @@ document.addEventListener('DOMContentLoaded', async function () {
   }
 
   loadMoreButton.addEventListener('click', () => {
-    updateLibraryView(false);
+    loadMoreButton.style.display = 'none';
+    loaderLibrary.style.display = 'block';
+    setTimeout(() => {
+      loaderLibrary.style.display = 'none';
+      updateLibraryView(false);
+    }, 300);
   });
 
   genreSelect.addEventListener('change', function () {
