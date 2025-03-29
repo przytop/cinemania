@@ -43,7 +43,7 @@ document.addEventListener('DOMContentLoaded', async () => {
   };
 
   const getGenres = await fetchGenres();
-  
+
   const filterByYear = (movies, year) =>
     year
       ? movies.filter(m => new Date(m.release_date).getFullYear() == year)
@@ -123,13 +123,27 @@ document.addEventListener('DOMContentLoaded', async () => {
       return button;
     };
 
+    const prevButton = document.createElement('button');
+    prevButton.textContent = '<';
+    prevButton.classList.add('arrow-button');
+    prevButton.disabled = currentPage === 1;
+    prevButton.addEventListener('click', () => {
+      if (currentPage > 1) {
+        currentPage--;
+        catalogCardsContainer.innerHTML = '';
+        loaderCatalog.style.display = 'block';
+        renderMovies(currentPage);
+      }
+    });
+    pagination.appendChild(prevButton);
+
     const firstButton = createPageButton(1);
-    const startPage = Math.max(1, currentPage - 2);
-    const endPage = Math.min(totalPages, currentPage + 2);
+    const startPage = Math.max(1, currentPage - 1);
+    const endPage = Math.min(totalPages, currentPage + 1);
 
     pagination.appendChild(firstButton);
 
-    if (currentPage > 4) {
+    if (currentPage > 3) {
       const dots = document.createElement('span');
       dots.textContent = '...';
       pagination.appendChild(dots);
@@ -148,6 +162,20 @@ document.addEventListener('DOMContentLoaded', async () => {
       pagination.appendChild(dots);
       pagination.appendChild(createPageButton(totalPages));
     }
+
+    const nextButton = document.createElement('button');
+    nextButton.textContent = '>';
+    nextButton.classList.add('arrow-button');
+    nextButton.disabled = currentPage === totalPages;
+    nextButton.addEventListener('click', () => {
+      if (currentPage < totalPages) {
+        currentPage++;
+        catalogCardsContainer.innerHTML = '';
+        loaderCatalog.style.display = 'block';
+        renderMovies(currentPage);
+      }
+    });
+    pagination.appendChild(nextButton);
   };
 
   const handleSearch = () => {
@@ -158,16 +186,34 @@ document.addEventListener('DOMContentLoaded', async () => {
     renderMovies(currentPage);
   };
 
-  searchButton.addEventListener('click', handleSearch);
-  yearSelect.addEventListener('change', handleSearch);
-  xButton.addEventListener('click', () => {
-    input.value = '';
-    handleSearch();
+  input.addEventListener('keydown', e => {
+    if (e.key === 'Enter') {
+      if (input.value.trim()) {
+        handleSearch();
+        input.value = '';
+      }
+    }
   });
   input.addEventListener(
     'input',
-    () => (xButton.style.visibility = input.value.trim() ? 'visible' : 'hidden')
+    () => (xButton.style.visibility = input.value ? 'visible' : 'hidden')
   );
+
+  xButton.addEventListener('click', () => {
+    input.value = '';
+    xButton.style.visibility = 'hidden';
+  });
+
+  searchButton.addEventListener('click', () => {
+    if (input.value.trim()) {
+      handleSearch();
+      input.value = '';
+    } else {
+      input.focus();
+    }
+  });
+
+  yearSelect.addEventListener('change', handleSearch);
 
   renderMovies(currentPage);
 });

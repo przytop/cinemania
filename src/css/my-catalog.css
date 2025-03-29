@@ -1,27 +1,3 @@
-html[data-theme='light'] .input-text,
-.year-select {
-  background-color: var(--white-color);
-  color: var(--grey-color);
-  border: solid 1px var(--grey-color);
-}
-
-html[data-theme='light'] .year-select {
-  background-color: var(--white-color);
-  color: var(--grey-color);
-  border: solid 1px var(--grey-color);
-}
-
-html[data-theme='light'] .page-number-button {
-  background-color: var(--white-color);
-  color: var(--grey-color);
-  border: solid 1px var(--grey-color);
-}
-
-.stars {
-  display: inline-flex;
-  align-items: center;
-}
-
 .star {
   width: 14px;
   height: 14px;
@@ -58,8 +34,12 @@ html[data-theme='light'] .page-number-button {
 .search-form {
   display: flex;
   justify-content: space-between;
-  align-items: center;
   gap: 10px;
+}
+
+.search-input-container {
+  position: relative;
+  width: 100%;
 }
 
 .catalog-searchbar {
@@ -166,12 +146,21 @@ html[data-theme='light'] .page-number-button {
   height: 20px;
   border: none;
   border-radius: 50%;
+  transform: scale(1.4);
+  transition: all 0.3s ease;
 }
 
 .arrow-button:hover,
 .arrow-button:focus {
-  background: linear-gradient(141.22deg, #ffc226 9.4%, #f84119 91.91%);
-  transform: scale(1.5);
+  transform: scale(2.1);
+}
+
+.arrow-button:disabled {
+  color: var(--grey-white-theme-color);
+}
+.arrow-button:disabled:hover,
+.arrow-button:disabled:focus {
+  transform: scale(1.4);
 }
 
 .page-number-button {
@@ -202,11 +191,15 @@ html[data-theme='light'] .page-number-button {
   font-size: 14px;
 }
 
+.catalog-button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 .search-icon {
   width: 20px;
   height: 20px;
-  position: relative;
-  left: 10px;
   stroke: white;
 }
 .vector-icon-left {
@@ -224,8 +217,9 @@ html[data-theme='light'] .page-number-button {
 }
 
 .x-button {
-  position: relative;
-  left: 321px;
+  position: absolute;
+  left: 123px;
+  bottom: 11px;
   visibility: hidden;
 }
 
@@ -253,6 +247,11 @@ html[data-theme='light'] .page-number-button {
     height: 44px;
     font-size: 14px;
     gap: 10px;
+  }
+
+  .x-button {
+    left: 154px;
+    bottom: 13px;
   }
 
   .year-select {
@@ -328,10 +327,6 @@ html[data-theme='light'] .page-number-button {
     width: 7.88px;
     height: 15.75px;
   }
-
-  .x-button {
-    left: 190px;
-  }
 }
 
 @media screen and (min-width: 1280px) {
@@ -351,6 +346,11 @@ html[data-theme='light'] .page-number-button {
   .my-catalog-section .input-text {
     width: 315px;
     height: 48px;
+  }
+
+  .x-button {
+    left: 276px;
+    bottom: 15px;
   }
 
   .year-select {
@@ -399,7 +399,6 @@ html[data-theme='light'] .page-number-button {
   }
 
   .pagination-container {
-    gap: 16px;
     margin-bottom: 60px;
   }
 
@@ -412,4 +411,36 @@ html[data-theme='light'] .page-number-button {
     width: 40px;
     height: 40px;
   }
+}
+
+html[data-theme='light'] .input-text {
+  background-color: var(--white-color);
+  color: var(--grey-white-theme-color);
+  border: solid 1px var(--grey-white-theme-color);
+}
+
+html[data-theme='light'] .year-select {
+  background-color: var(--white-color);
+  color: var(--grey-white-theme-color);
+  border: solid 1px var(--grey-white-theme-color);
+}
+
+html[data-theme='light'] .arrow-button {
+  background-color: var(--white-color);
+  color: var(--grey-white-theme-color);
+}
+
+html[data-theme='light'] .page-number-button {
+  background-color: var(--white-color);
+  color: var(--grey-white-theme-color);
+  border: solid 1px var(--grey-white-theme-color);
+}
+html[data-theme='light'] .page-number-button.active,
+html[data-theme='light'] .page-number-button:hover,
+html[data-theme='light'] .page-number-button:focus {
+  border: none;
+}
+
+html[data-theme='light'] .arrow-button:disabled {
+  color: var(--grey-color);
 }

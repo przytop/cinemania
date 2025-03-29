@@ -1,12 +1,20 @@
 <section class="my-catalog-section container">
   <div class="catalog-searchbar">
-    <button class="x-button" type="reset">
-      <img src="./img/x.svg" alt="delete" class="x-icon" />
-    </button>
     <div class="search-section">
       <div class="search-form">
-        <input class="input-text" type="text" name="query" autocomplete="off" placeholder="Search" required />
-
+        <div class="search-input-container">
+          <input
+            class="input-text"
+            type="text"
+            name="query"
+            autocomplete="off"
+            placeholder="Search"
+            required
+          />
+          <button class="x-button" type="reset">
+            <img src="./img/x.svg" alt="delete" class="x-icon" />
+          </button>
+        </div>
         <select class="year-select">
           <option value="">Years</option>
           <option value="2024" class="year">2024</option>
@@ -28,7 +36,6 @@
       </button>
     </div>
   </div>
-
   <ul class="catalog-movie-list"></ul>
   <div id="loader-catalog" class="loader"></div>
   <p class="catalog-sorry-message">
@@ -36,25 +43,5 @@
     We are very sorry! <br />
     We don't have any results matching your search.
   </p>
-
   <div class="pagination-container"></div>
-
-  </div>
 </section>
-
-
-
-<!-- <div class="catalog-pages">
-  <button type="button" class="arrow-button prev-page">
-    <img src="./img/vector.svg" alt="vector" class="vector-icon-left" />
-  </button>
-  <button type="button" class="page-number-button">01</button>
-  <button type="button" class="page-number-button">02</button>
-  <button type="button" class="page-number-button">03</button>
-  <button type="button" class="page-number-button-between">...</button>
-  <button type="button" class="page-number-button">24</button>
-  <button type="button" class="arrow-button next-page">
-    <img src="./img/vector-right.svg" alt="vector" class="vector-icon-right" />
-  </button>
-</div>
-</section> -->

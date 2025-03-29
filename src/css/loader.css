@@ -34,3 +34,9 @@
     transform: rotate(2turn);
   }
 }
+
+html[data-theme='light'] .loader {
+  &::after {
+    background: var(--white-color);
+  }
+}
