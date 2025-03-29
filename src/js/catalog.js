@@ -191,6 +191,7 @@ document.addEventListener('DOMContentLoaded', async () => {
       if (input.value.trim()) {
         handleSearch();
         input.value = '';
+        xButton.style.visibility = 'hidden';
       }
     }
   });
@@ -208,6 +209,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     if (input.value.trim()) {
       handleSearch();
       input.value = '';
+      xButton.style.visibility = 'hidden';
     } else {
       input.focus();
     }
