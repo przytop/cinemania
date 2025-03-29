@@ -1,4 +1,5 @@
 .loader {
+  display: none;
   position: relative;
   width: 20vmin;
   aspect-ratio: 1;

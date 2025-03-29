@@ -7,6 +7,7 @@ const library = new Library('myLibrary');
 
 async function getUpcomingMovies() {
   const loaderUpcoming = document.getElementById('loader-upcoming');
+  loaderUpcoming.style.display = 'block';
 
   try {
     const movies = await tmdb.getUpcomingMovies();

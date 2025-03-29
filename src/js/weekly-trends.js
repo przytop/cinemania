@@ -23,6 +23,8 @@ document.addEventListener('DOMContentLoaded', async function () {
     }
   });
 
+  loaderWeekly.style.display = 'block';
+  
   try {
     const movies = await tmdb.getTrendingMovies('week');
 

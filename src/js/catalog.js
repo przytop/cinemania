@@ -9,8 +9,8 @@ document.addEventListener('DOMContentLoaded', async () => {
   const searchButton = document.querySelector('.catalog-button');
   const yearSelect = document.querySelector('.year-select');
   const xButton = document.querySelector('.x-button');
-  const pagination = document.querySelector('.pagination-container'); // Container for pagination buttons
-  const loader = document.getElementById('loader-catalog');
+  const pagination = document.querySelector('.pagination-container');
+  const loaderCatalog = document.getElementById('loader-catalog');
 
   const genreAbbreviations = { 'Science Fiction': 'Sci-Fi' };
   let currentPage = 1;
@@ -20,13 +20,15 @@ document.addEventListener('DOMContentLoaded', async () => {
   sorryMessage.style.display = 'none';
 
   const fetchMovies = async (page = 1, resultsPerPage = 18) => {
+    loaderCatalog.style.display = 'block';
+
     try {
-      loader.style.display = 'block';
+      
       const movies = query
         ? await tmdb.searchMovieTotal(query, page)
         : await tmdb.getTrendingMoviesTotal('week', page);
-      totalPages = Math.ceil(movies.total_results / 20); // Calculate total pages
-      loader.style.display = 'none';
+      totalPages = Math.ceil(movies.total_results / 20);
+      loaderCatalog.style.display = 'none';
       return movies.results.slice(0, resultsPerPage);
     } catch (e) {
       console.error('Error fetching movies:', e);
@@ -153,6 +155,5 @@ document.addEventListener('DOMContentLoaded', async () => {
   });
   input.addEventListener('input', () => xButton.style.visibility = input.value.trim() ? 'visible' : 'hidden');
 
-  // Initial load
   renderMovies(currentPage);
 });
