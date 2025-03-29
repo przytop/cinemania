@@ -11,7 +11,6 @@ document.addEventListener('DOMContentLoaded', async () => {
   const xButton = document.querySelector('.x-button');
   const pagination = document.querySelector('.pagination-container');
   const loaderCatalog = document.getElementById('loader-catalog');
-
   const genreAbbreviations = { 'Science Fiction': 'Sci-Fi' };
   let currentPage = 1;
   let totalPages = 1;
@@ -20,10 +19,7 @@ document.addEventListener('DOMContentLoaded', async () => {
   sorryMessage.style.display = 'none';
 
   const fetchMovies = async (page = 1, resultsPerPage = 18) => {
-    loaderCatalog.style.display = 'block';
-
     try {
-      
       const movies = query
         ? await tmdb.searchMovieTotal(query, page)
         : await tmdb.getTrendingMoviesTotal('week', page);
@@ -31,35 +27,59 @@ document.addEventListener('DOMContentLoaded', async () => {
       loaderCatalog.style.display = 'none';
       return movies.results.slice(0, resultsPerPage);
     } catch (e) {
+      loaderCatalog.style.display = 'none';
       console.error('Error fetching movies:', e);
       return [];
     }
   };
 
   const fetchGenres = async () => {
-    try { return await tmdb.getMovieGenres(); }
-    catch (e) { console.error('Error fetching genres:', e); return []; }
+    try {
+      return await tmdb.getMovieGenres();
+    } catch (e) {
+      console.error('Error fetching genres:', e);
+      return [];
+    }
   };
 
   const getGenres = await fetchGenres();
-  const filterByYear = (movies, year) => year ? movies.filter(m => new Date(m.release_date).getFullYear() == year) : movies;
+  
+  const filterByYear = (movies, year) =>
+    year
+      ? movies.filter(m => new Date(m.release_date).getFullYear() == year)
+      : movies;
 
   const starRating = rating => {
     const fullStars = Math.floor(rating / 2);
     const halfStar = rating % 2 >= 1 ? 1 : 0;
-    return '<svg class="star full"><use xlink:href="#icon-star"></use></svg>'.repeat(fullStars) +
-           (halfStar ? '<svg class="star half"><use xlink:href="#icon-star-half"></use></svg>' : '') +
-           '<svg class="star empty"><use xlink:href="#icon-star-outline"></use></svg>'.repeat(5 - Math.ceil(rating / 2));
+    return (
+      '<svg class="star full"><use xlink:href="#icon-star"></use></svg>'.repeat(
+        fullStars
+      ) +
+      (halfStar
+        ? '<svg class="star half"><use xlink:href="#icon-star-half"></use></svg>'
+        : '') +
+      '<svg class="star empty"><use xlink:href="#icon-star-outline"></use></svg>'.repeat(
+        5 - Math.ceil(rating / 2)
+      )
+    );
   };
 
   const renderMovies = async (page = 1) => {
+    loaderCatalog.style.display = 'block';
     const movies = filterByYear(await fetchMovies(page), yearSelect.value);
     catalogCardsContainer.innerHTML = '';
     sorryMessage.style.display = movies.length ? 'none' : 'block';
 
     movies.forEach(m => {
-      const genres = m.genre_ids.slice(0, 2).map(id => (getGenres.find(g => g.id === id)?.name || 'Unknown')).map(name => genreAbbreviations[name] || name).join(', ');
-      const releaseDate = m.release_date ? new Date(m.release_date).getFullYear() : 'Unknown';
+      const genres = m.genre_ids
+        .slice(0, 2)
+        .map(id => getGenres.find(g => g.id === id)?.name || 'Unknown')
+        .map(name => genreAbbreviations[name] || name)
+        .join(', ');
+      const releaseDate = m.release_date
+        ? new Date(m.release_date).getFullYear()
+        : 'Unknown';
       const rating = Math.round(m.vote_average * 10) / 10;
 
       const card = document.createElement('li');
@@ -69,7 +89,9 @@ document.addEventListener('DOMContentLoaded', async () => {
       card.innerHTML = `
         <div class="card-content">
           <h2>${m.title}</h2>
-          <p>${genres} | ${releaseDate} <span class="stars">${starRating(rating)}</span></p>
+          <p>${genres} | ${releaseDate} <span class="stars">${starRating(
+        rating
+      )}</span></p>
         </div>
       `;
       card.addEventListener('click', () => openMovieInfoModal(m.id));
@@ -79,7 +101,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     renderPagination(page);
   };
 
-  const renderPagination = (currentPage) => {
+  const renderPagination = currentPage => {
     pagination.innerHTML = '';
 
     if (totalPages <= 1) return;
@@ -90,33 +112,34 @@ document.addEventListener('DOMContentLoaded', async () => {
       button.classList.add('page-number-button');
       if (page === currentPage) {
         button.classList.add('active');
+        button.disabled = true;
       }
       button.addEventListener('click', () => {
         currentPage = page;
+        catalogCardsContainer.innerHTML = '';
+        loaderCatalog.style.display = 'block';
         renderMovies(currentPage);
       });
       return button;
     };
 
-    if (totalPages > 1) {
-      const prevButton = document.createElement('button');
-      prevButton.textContent = '←';
-      prevButton.classList.add('arrow-button');
-      prevButton.disabled = currentPage === 1;
-      prevButton.addEventListener('click', () => {
-        if (currentPage > 1) {
-          currentPage--;
-          renderMovies(currentPage);
-        }
-      });
-      pagination.appendChild(prevButton);
-    }
-
+    const firstButton = createPageButton(1);
     const startPage = Math.max(1, currentPage - 2);
     const endPage = Math.min(totalPages, currentPage + 2);
 
+    pagination.appendChild(firstButton);
+
+    if (currentPage > 4) {
+      const dots = document.createElement('span');
+      dots.textContent = '...';
+      pagination.appendChild(dots);
+    }
+
     for (let page = startPage; page <= endPage; page++) {
-      pagination.appendChild(createPageButton(page));
+      if (page !== 1) {
+        // Skip page 1 because it's already added
+        pagination.appendChild(createPageButton(page));
+      }
     }
 
     if (endPage < totalPages) {
@@ -125,23 +148,11 @@ document.addEventListener('DOMContentLoaded', async () => {
       pagination.appendChild(dots);
       pagination.appendChild(createPageButton(totalPages));
     }
-
-    if (totalPages > 1) {
-      const nextButton = document.createElement('button');
-      nextButton.textContent = '→';
-      nextButton.classList.add('arrow-button');
-      nextButton.disabled = currentPage === totalPages;
-      nextButton.addEventListener('click', () => {
-        if (currentPage < totalPages) {
-          currentPage++;
-          renderMovies(currentPage);
-        }
-      });
-      pagination.appendChild(nextButton);
-    }
   };
 
   const handleSearch = () => {
+    catalogCardsContainer.innerHTML = '';
+    loaderCatalog.style.display = 'block';
     query = input.value.trim();
     currentPage = 1;
     renderMovies(currentPage);
@@ -153,7 +164,10 @@ document.addEventListener('DOMContentLoaded', async () => {
     input.value = '';
     handleSearch();
   });
-  input.addEventListener('input', () => xButton.style.visibility = input.value.trim() ? 'visible' : 'hidden');
+  input.addEventListener(
+    'input',
+    () => (xButton.style.visibility = input.value.trim() ? 'visible' : 'hidden')
+  );
 
   renderMovies(currentPage);
 });

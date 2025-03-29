@@ -195,8 +195,6 @@ document.addEventListener('DOMContentLoaded', async function () {
   }
 
   async function updateLibraryView(reset = true) {
-    loaderLibrary.style.display = 'block';
-
     const movies = lmm.getMovies();
 
     if (reset & (movies.length === 0)) {

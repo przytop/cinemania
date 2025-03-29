@@ -5,10 +5,10 @@ import 'izitoast/dist/css/iziToast.min.css';
 const tmdb = new TmdbApi();
 const library = new Library('myLibrary');
 
+
 async function getUpcomingMovies() {
   const loaderUpcoming = document.getElementById('loader-upcoming');
-  loaderUpcoming.style.display = 'block';
-
+  
   try {
     const movies = await tmdb.getUpcomingMovies();
     const today = new Date();
