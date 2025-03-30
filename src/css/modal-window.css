@@ -22,7 +22,8 @@
   left: 50%;
   transform: translate(-50%, -50%);
   width: 280px;
-  max-height: 847px;
+  max-height: 94vh;
+  overflow-y: auto;
   padding: 52px 16px;
   background-color: var(--black-color);
   border-radius: 16px;
