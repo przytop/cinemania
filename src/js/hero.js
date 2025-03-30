@@ -1,7 +1,7 @@
 import TmdbApi from './tmdb-api';
 import ModalVideo from 'modal-video';
 import 'modal-video/css/modal-video.min.css';
-import openMovieInfoModal from './modal-window'; // Import funkcji otwierającej modal
+import openMovieInfoModal from './modal-window';
 
 const tmdb = new TmdbApi();
 
@@ -15,9 +15,9 @@ const displayMovieInfo = movie => {
     </div>
     <p class="desc">${movie.overview}</p>
     <div class="hero-btn">
-      <button class="watch-btn" data-video-id="${
+      <button class="watch-btn" data-movie-id=${
         movie.id
-      })">Watch trailer</button> 
+      }>Watch trailer</button> 
       <button class="details-btn">More details</button>
     </div>
   `;
@@ -28,13 +28,12 @@ const displayMovieInfo = movie => {
   hero.style.backgroundPosition = 'center';
 
   const watchBtn = document.querySelector('.watch-btn');
-  watchBtn.addEventListener('click', () => watchTrailer(movie.id));
+  watchBtn.addEventListener('click', watchTrailer(movie.id));
 
   const detailsBtn = document.querySelector('.details-btn');
-  detailsBtn.addEventListener('click', () => openMovieInfoModal(movie.id)); // Podpięcie modala
+  detailsBtn.addEventListener('click', () => openMovieInfoModal(movie.id));
 };
 
-// Nowa funkcja generująca HTML dla gwiazdek
 const getStarRatingHTML = voteAverage => {
   const roundedRating = Math.round(voteAverage * 10) / 10;
   const maxStars = 5;
@@ -58,21 +57,25 @@ const getStarRatingHTML = voteAverage => {
 };
 
 const watchTrailer = async movieId => {
+  const watchBtn = document.querySelector('.watch-btn');
+
   try {
     const videos = await tmdb.getMovieVideos(movieId);
     const trailer = videos.find(video => video.type === 'Trailer');
+
     if (trailer) {
-      new ModalVideo('.watch-btn', {
-        channel: 'youtube',
-        autoplay: 1,
-        url: `https://www.youtube.com/watch?v=${trailer.key}`,
-      }).open();
+      watchBtn.setAttribute('data-video-id', trailer.key);
+      watchBtn.click();
+
+      if (!watchBtn.dataset.modalInitialized) {
+        new ModalVideo('.watch-btn');
+      }
     } else {
-      window.alert('Trailer not available');
+      watchBtn.addEventListener('click', modalOopsie);
     }
   } catch (error) {
     console.error('Failed to load movie videos:', error);
-    modalOopsie();
+    watchBtn.addEventListener('click', modalOopsie);
   }
 };
 
@@ -90,7 +93,7 @@ const modalOopsie = () => {
 
   const modalCont = document.getElementById('modal-cont');
   modalCont.innerHTML = `
-        <p>OOPS... <br> We are very sorry! <br> But we couldn’t find the trailer.</p>
+        <p>OOPS... <br> We are very sorry! <br> But we couldn't find the trailer.</p>
         <img class="image-cont">
         <button id="modal-close">
             <svg width="24" height="24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -99,7 +102,7 @@ const modalOopsie = () => {
             </svg>
         </button>`;
 
-  document.getElementById('modal-close').addEventListener('click', function () {
+  document.getElementById('modal-close').addEventListener('click', () => {
     modalOpened = false;
 
     modalDiv.classList.remove('fade-in');
@@ -134,7 +137,7 @@ const displayDefaultHero = () => {
   textCont.classList.add('default-text-cont');
   const defaultTextCont = document.querySelector('.default-text-cont');
   defaultTextCont.innerHTML = `
-    <h2 class="title-default">Let’s Make Your Own Cinema</h2>
+    <h2 class="title-default">Let's Make Your Own Cinema</h2>
     <p class="desc-default">Is a guide to creating a personalized movie theater experience. 
     You'll need a projector, screen, and speakers. 
     Decorate your space, choose your films, and stock up on snacks for the full experience.</p>
