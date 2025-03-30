@@ -1,9 +1,11 @@
 import TmdbApi from './tmdb-api';
 import LocalMovieManager from './local-movie-manager';
+import ModalVideo from 'modal-video';
 import iziToast from 'izitoast';
 import 'izitoast/dist/css/iziToast.min.css';
 
 const backdrop = document.querySelector('.backdrop');
+const tmdb = new TmdbApi();
 
 export default function openMovieInfoModal(id) {
   backdrop.classList.remove('is-closed');
@@ -18,8 +20,6 @@ function closeMovieInfoModal() {
 }
 
 export async function createMovieInfoMarkup(id) {
-  const tmdb = new TmdbApi();
-
   try {
     const movie = await tmdb.getMovieDetails(id);
     const genreNames = movie.genres.map(genre => genre.name).join(' ');
@@ -76,7 +76,10 @@ export async function createMovieInfoMarkup(id) {
           </table>
           <h3 class="modal-film-desc-about">About</h3>
           <p class="modal-film-desc">${movie.overview}</p>
-          <button id="library-actions-btn" type="submit"></button>
+          <div class="modal-film-btns">
+            <button class="watch-trailer-btn"}>Watch trailer</button> 
+            <button id="library-actions-btn" type="submit"></button>
+          </div>
         </div>
       </div>
     `;
@@ -96,6 +99,9 @@ export async function createMovieInfoMarkup(id) {
       }
       closeMovieInfoModal();
     });
+
+    const watchTrailerBtn = document.querySelector('.watch-trailer-btn');
+    watchTrailerBtn.addEventListener('click', watchTrailer(movie.id));
 
     const addLibraryBtn = document.getElementById('library-actions-btn');
     updateLibraryButton(movie.id);
@@ -154,3 +160,38 @@ function updateLibraryButton(movieId) {
     libraryBtn.textContent = 'Add to my library';
   }
 }
+
+const watchTrailer = async movieId => {
+  const watchTrailerBtn = document.querySelector('.watch-trailer-btn');
+
+  try {
+    const videos = await tmdb.getMovieVideos(movieId);
+    const trailer = videos.find(video => video.type === 'Trailer');
+
+    if (trailer) {
+      watchTrailerBtn.setAttribute('data-video-id', trailer.key);
+      if (!watchTrailerBtn.dataset.modalInitialized) {
+        new ModalVideo('.watch-trailer-btn', {
+          youtube: {
+            autoplay: 1,
+            rel: 0,
+            iv_load_policy: 3,
+          },
+        });
+      }
+    } else {
+      watchTrailerBtn.addEventListener('click', () => {
+        iziToast.info({
+          title: 'Sorry',
+          message: 'No trailer available for this movie',
+          backgroundColor: 'red',
+          messageSize: '13',
+          closeOnEscape: true,
+          closeOnClick: true,
+        });
+      });
+    }
+  } catch (error) {
+    console.error('Failed to load movie videos:', error);
+  }
+};

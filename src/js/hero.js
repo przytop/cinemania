@@ -15,9 +15,7 @@ const displayMovieInfo = movie => {
     </div>
     <p class="desc">${movie.overview}</p>
     <div class="hero-btn">
-      <button class="watch-btn" data-movie-id=${
-        movie.id
-      }>Watch trailer</button> 
+      <button class="watch-btn"}>Watch trailer</button> 
       <button class="details-btn">More details</button>
     </div>
   `;
@@ -65,10 +63,15 @@ const watchTrailer = async movieId => {
 
     if (trailer) {
       watchBtn.setAttribute('data-video-id', trailer.key);
-      watchBtn.click();
 
       if (!watchBtn.dataset.modalInitialized) {
-        new ModalVideo('.watch-btn');
+        new ModalVideo('.watch-btn', {
+          youtube: {
+            autoplay: 1,
+            rel: 0,
+            iv_load_policy: 3,
+          },
+        });
       }
     } else {
       watchBtn.addEventListener('click', modalOopsie);
