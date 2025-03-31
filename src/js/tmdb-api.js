@@ -44,8 +44,12 @@ export default class TmdbApi {
     return (await this._fetch('/search/movie', { query, page })).results;
   }
 
-  async searchMovieTotal(query, page = 1) {
-    return await this._fetch('/search/movie', { query, page });
+  async searchMovieTotal(query, page = 1, releaseYear = '') {
+    return await this._fetch('/search/movie', {
+      query,
+      page,
+      primary_release_year: releaseYear,
+    });
   }
 
   async getMovieDetails(movie_id) {

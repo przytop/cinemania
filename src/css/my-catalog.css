@@ -62,13 +62,13 @@
 .year-select {
   background-color: var(--black-color);
   width: 65px;
-  height: 40px;
   border-radius: 8px;
   border: solid var(--white-color) 1px;
   color: var(--grey-color);
   font-size: 14px;
   padding: 3px;
   font-weight: 500;
+  overflow-y: auto;
 }
 
 .year-select option:checked {
@@ -77,13 +77,22 @@
   font-weight: 500;
 }
 
+.select-option-default {
+  display: none;
+}
+
 .catalog-button {
+  transition: transform 0.3s;
   width: 40px;
   height: 40px;
   border-radius: 50%;
   border: none;
   background: linear-gradient(141.22deg, #ffc226 9.4%, #f84119 91.91%);
 }
+.catalog-button:hover{
+  transform: scale(1.15);
+}
+
 
 .catalog-sorry-message {
   font-size: 20px;
@@ -100,6 +109,8 @@
   flex-wrap: wrap;
   padding-top: 16px;
   margin-bottom: 20px;
+  justify-content: center;
+  align-items: center;
 }
 
 .catalog-movie-list-item {
@@ -218,9 +229,46 @@
 
 .x-button {
   position: absolute;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   left: 123px;
   bottom: 11px;
   visibility: hidden;
+  width: 18px;
+  height: 18px;
+}
+
+html[data-theme='light'] .input-text {
+  background-color: var(--white-color);
+  color: var(--grey-white-theme-color);
+  border: solid 1px var(--grey-white-theme-color);
+}
+
+html[data-theme='light'] .year-select {
+  background-color: var(--white-color);
+  color: var(--grey-white-theme-color);
+  border: solid 1px var(--grey-white-theme-color);
+}
+
+html[data-theme='light'] .arrow-button {
+  background-color: var(--white-color);
+  color: var(--grey-white-theme-color);
+}
+
+html[data-theme='light'] .page-number-button {
+  background-color: var(--white-color);
+  color: var(--grey-white-theme-color);
+  border: solid 1px var(--grey-white-theme-color);
+}
+html[data-theme='light'] .page-number-button.active,
+html[data-theme='light'] .page-number-button:hover,
+html[data-theme='light'] .page-number-button:focus {
+  border: none;
+}
+
+html[data-theme='light'] .arrow-button:disabled {
+  color: var(--grey-color);
 }
 
 @media screen and (min-width: 768px) and (max-width: 1279px) {
@@ -411,36 +459,4 @@
     width: 40px;
     height: 40px;
   }
-}
-
-html[data-theme='light'] .input-text {
-  background-color: var(--white-color);
-  color: var(--grey-white-theme-color);
-  border: solid 1px var(--grey-white-theme-color);
-}
-
-html[data-theme='light'] .year-select {
-  background-color: var(--white-color);
-  color: var(--grey-white-theme-color);
-  border: solid 1px var(--grey-white-theme-color);
-}
-
-html[data-theme='light'] .arrow-button {
-  background-color: var(--white-color);
-  color: var(--grey-white-theme-color);
-}
-
-html[data-theme='light'] .page-number-button {
-  background-color: var(--white-color);
-  color: var(--grey-white-theme-color);
-  border: solid 1px var(--grey-white-theme-color);
-}
-html[data-theme='light'] .page-number-button.active,
-html[data-theme='light'] .page-number-button:hover,
-html[data-theme='light'] .page-number-button:focus {
-  border: none;
-}
-
-html[data-theme='light'] .arrow-button:disabled {
-  color: var(--grey-color);
 }
