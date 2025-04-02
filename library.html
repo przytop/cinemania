@@ -24,11 +24,10 @@
       crossorigin="anonymous"
       referrerpolicy="no-referrer"
     />
-    <script type="module" crossorigin src="/cinemania/library.js"></script>
-    <link rel="modulepreload" crossorigin href="/cinemania/assets/vendor-CTT6gwRZ.js">
-    <link rel="modulepreload" crossorigin href="/cinemania/assets/main-BjSlWoY3.js">
+    <script type="module" crossorigin src="/cinemania/assets/vendor-CTT6gwRZ.js"></script>
+    <script type="module" crossorigin src="/cinemania/assets/main-DAoONcfQ.js"></script>
     <link rel="stylesheet" crossorigin href="/cinemania/assets/vendor-Bb7Ew_49.css">
-    <link rel="stylesheet" crossorigin href="/cinemania/assets/main-hECxsmFG.css">
+    <link rel="stylesheet" crossorigin href="/cinemania/assets/main-Q4_Fd9Ct.css">
   </head>
 
   <body>
@@ -156,13 +155,13 @@
       <section class="my-library-background">
   <div class="my-library-main-section container">
     <form class="genre-form">
-      <select id="genre" class="genre-select"></select>
+      <select id="genre" class="genre-select">
+        <option class="genre-option-default" value="">Genre</option>
+      </select>
     </form>
-
     <ul class="my-library-movie-list"></ul>
     <div id="loader-library" class="loader"></div>
-
-    <button class="my-library-button load">Load more</button>
+    <button id="my-library-button-load" class="my-library-button load">Load more</button>
   </div>
   <div class="my-library-sorry">
     <p class="my-library-sorry-message">
@@ -172,9 +171,7 @@
     </p>
     <button
       id="my-library-button-search"
-      class="my-library-button"
-      disabled
-      onclick="window.location.href='./catalog.html'"
+      class="my-library-button search"
     >
       Search movie
     </button>
@@ -591,5 +588,6 @@
 
     <button class="scroll-up-btn" id="scrollUpBtn">&#9650;</button>
 
+    <!-- <script type="module" src="./js/library.js"></script> -->
   </body>
 </html>
