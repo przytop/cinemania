@@ -63,11 +63,17 @@ const createStarRating = rating => {
 const createMovieListItem = movie => {
   const listItem = document.createElement('li');
   listItem.classList.add('my-library-movie-list-item');
-  const genreNames =
-    movie.genres
-      .map(genre => genre.name)
-      .slice(0, 2)
-      .join(', ') || 'Unknown';
+  const genreNames = movie.genres
+    ? movie.genres
+        .map(genre => genre.name)
+        .slice(0, 2)
+        .join(', ')
+    : movie.genre_ids
+    ? movie.genre_ids
+        .map(id => genreMap.get(id))
+        .slice(0, 2)
+        .join(', ')
+    : 'Unknown';
   const id = movie.id;
   const releaseYear = movie.release_date
     ? new Date(movie.release_date).getFullYear()
