@@ -1,13 +1,13 @@
 <section class="my-library-background">
   <div class="my-library-main-section container">
     <form class="genre-form">
-      <select id="genre" class="genre-select"></select>
+      <select id="genre" class="genre-select">
+        <option class="genre-option-default" value="">Genre</option>
+      </select>
     </form>
-
     <ul class="my-library-movie-list"></ul>
     <div id="loader-library" class="loader"></div>
-
-    <button class="my-library-button load">Load more</button>
+    <button id="my-library-button-load" class="my-library-button load">Load more</button>
   </div>
   <div class="my-library-sorry">
     <p class="my-library-sorry-message">
@@ -17,9 +17,7 @@
     </p>
     <button
       id="my-library-button-search"
-      class="my-library-button"
-      disabled
-      onclick="window.location.href='./catalog.html'"
+      class="my-library-button search"
     >
       Search movie
     </button>

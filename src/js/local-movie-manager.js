@@ -12,6 +12,10 @@ export default class LocalMovieManager {
     }
   }
 
+  _refreshMovies() {
+    this.movies = JSON.parse(localStorage.getItem(this.localStorageKey)) || [];
+  }
+
   addMovie(movie) {
     const index = this.movies.findIndex(ele => ele.id === movie.id);
     if (index === -1) {
@@ -33,6 +37,7 @@ export default class LocalMovieManager {
   }
 
   getMovies() {
+    this._refreshMovies();
     return this.movies;
   }
 }

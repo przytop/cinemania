@@ -59,7 +59,8 @@ button,
 .theme-switcher,
 .input-text,
 .year-select,
-.modal-btn-close {
+.modal-btn-close,
+.genre-select {
   cursor: url('../img/cursor-pointer-2.png'), auto;
 }
 

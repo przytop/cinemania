@@ -1,5 +1,6 @@
 import TmdbApi from './tmdb-api';
 import LocalMovieManager from './local-movie-manager';
+import { updateLibrary } from './library';
 import ModalVideo from 'modal-video';
 import iziToast from 'izitoast';
 import 'izitoast/dist/css/iziToast.min.css';
@@ -17,6 +18,7 @@ function closeMovieInfoModal() {
   backdrop.classList.add('is-closed');
   backdrop.innerHTML = '';
   document.body.style.overflow = 'auto';
+  updateLibrary(false, true);
 }
 
 export async function createMovieInfoMarkup(id) {

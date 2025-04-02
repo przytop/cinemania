@@ -1,5 +1,6 @@
 .genre-form {
   display: none;
+  margin-bottom: 16px;
 }
 
 .genre-select {
@@ -10,12 +11,10 @@
   border: solid 1px;
   border-radius: 4px;
   padding: 12px;
-  margin-top: 40px;
-  margin-bottom: 16px;
-  appearance: none;
-  -webkit-appearance: none;
-  -moz-appearance: none;
-  outline: none;
+}
+
+.genre-option-default {
+  display: none;
 }
 
 #genre {
@@ -34,11 +33,11 @@ html[data-theme='light'] #genre {
 .my-library-movie-list {
   list-style: none;
   display: flex;
-  flex-wrap: wrap;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  padding: 48px 0 40px;
+  gap: 16px;
+  margin-bottom: 24px;
 }
 
 .my-library-movie-list-item {
@@ -50,6 +49,15 @@ html[data-theme='light'] #genre {
   height: 406px;
   overflow: hidden;
   transition: transform 0.2s;
+}
+
+.my-library-movie-list-item:hover {
+  transform: scale(1.05);
+}
+
+.my-library-movie-list-item img {
+  width: 100%;
+  height: auto;
 }
 
 .my-library-gradient {
@@ -68,30 +76,31 @@ html[data-theme='light'] #genre {
 
 .my-library-movie {
   position: absolute;
-  bottom: 20px;
-  left: 20px;
-  display: flex;
-  flex-direction: column;
-  font-size: 20px;
-  color: var(--white-color);
-  text-align: left;
-  justify-content: space-between;
+  bottom: 0;
+  width: 100%;
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0));
+  color: #fff;
+  padding: 10px;
+  box-sizing: border-box;
 }
-
-.my-library-movie h2 {
-  text-transform: uppercase;
+.my-library-movie h2,
+.my-library-movie p {
   font-family: var(--font-roboto);
   font-weight: 500;
   font-size: 12px;
+}
+.my-library-movie h2 {
   margin: 10px 0 5px;
+  text-align: left;
   text-transform: uppercase;
 }
 .my-library-movie p {
   color: var(--grey-color);
-  font-family: var(--font-roboto);
-  font-weight: 500;
-  font-size: 12px;
   margin: 5px 0;
+  text-align: left;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 }
 
 .my-library-button {
@@ -99,36 +108,30 @@ html[data-theme='light'] #genre {
   color: var(--black-color);
   background: linear-gradient(141.22deg, #ffc226 9.4%, #f84119 91.91%);
   padding: 12px 24px;
-  margin-bottom: 42px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin: 0 auto;
-  padding: 12px 24px;
   border-radius: 74px;
 }
-
-.load {
-  margin: auto;
-  display: none;
+.my-library-button.load {
+  margin: 0 auto 40px;
 }
-
-#my-library-button-search {
-  display: none;
+.my-library-button.search {
+  display: block;
+  margin: 20px auto 42px;
 }
-
+#my-library-button-load,
 .my-library-sorry {
   display: none;
 }
 
 .my-library-sorry-message {
-  padding-top: 80px;
   font-size: 24px;
   font-weight: 400;
   line-height: 32px;
   text-align: center;
   padding-bottom: 24px;
+  max-width: 320px;
+  margin: 0 auto;
 }
+
 .stars {
   display: inline-flex;
   align-items: center;
@@ -140,31 +143,34 @@ html[data-theme='light'] #genre {
   display: inline-block;
   vertical-align: middle;
 }
-
 .star.full use,
 .star.half use {
   fill: url(#star-gradient);
 }
-
 .star.empty use {
   stroke: url(#star-gradient);
   fill: none;
 }
+
+#loader-library {
+  margin: 0 auto 24px;
+}
+
 @media screen and (min-width: 768px) {
-  .my-library-button {
-    margin-bottom: 40px;
+  .genre-form {
+    margin-bottom: 36px;
   }
 
   .genre-select {
     width: 144px;
-    margin-top: 60px;
-    margin-bottom: 36px;
   }
 
   .my-library-movie-list {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 16px;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    column-gap: 15px;
+    row-gap: 28px;
   }
 
   .my-library-movie-list-item {
@@ -172,17 +178,16 @@ html[data-theme='light'] #genre {
     height: 325px;
   }
 
+  .my-library-button.load {
+    margin: 0 auto 60px;
+  }
+  .my-library-button.search {
+    margin: 24px auto 60px;
+  }
+
   .my-library-movie {
     font-size: 12px;
     font-weight: 500;
-    line-height: 18px;
-    text-align: left;
-  }
-
-  .my-library-movie h2,
-  .my-library-movie p {
-    font-size: 12px;
-    line-height: 20px;
     text-align: left;
   }
 
@@ -191,23 +196,37 @@ html[data-theme='light'] #genre {
     font-weight: 400;
     line-height: 32px;
     text-align: center;
+    max-width: 768px;
   }
 
   .stars {
     margin-left: 22px;
   }
+
+  #loader-library {
+    margin: 0 auto 40px;
+  }
 }
 
 @media screen and (min-width: 1280px) {
-  .genre-select {
-    width: 260px;
-    font-size: 16px;
-    margin-top: 80px;
+  .genre-form {
     margin-bottom: 48px;
   }
 
-  .my-library-button {
-    margin-bottom: 88px;
+  .genre-select {
+    width: 260px;
+    font-size: 16px;
+  }
+
+  .my-library-button.load {
+    margin: 40px auto 96px;
+  }
+  .my-library-button.search {
+    margin: 28px auto 108px;
+  }
+
+  .my-library-movie-list {
+    row-gap: 32px;
   }
 
   .my-library-movie-list-item {
