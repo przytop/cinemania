@@ -108,7 +108,11 @@ const renderMovieList = (update = false) => {
 
     const filteredMovies = genreSelected
       ? movies.filter(movie =>
-          movie.genres.some(genre => genre.id === parseInt(genreSelected))
+          movie.genres
+            ? movie.genres.some(genre => genre.id === parseInt(genreSelected))
+            : movie.genre_ids
+            ? movie.genre_ids.includes(parseInt(genreSelected))
+            : false
         )
       : movies;
 
@@ -120,6 +124,10 @@ const renderMovieList = (update = false) => {
         genreForm.style.display = 'none';
       }
       return;
+    }
+
+    if (filteredMovies.length > 0) {
+      sorryMessage.style.display = 'none';
     }
 
     const moviesToDisplay = update
@@ -184,7 +192,7 @@ document.addEventListener('DOMContentLoaded', async () => {
       window.location.href = './catalog.html';
     });
 
-    populateGenreSelect();
+    await populateGenreSelect();
     updateLibrary(true, false);
   }
 });
