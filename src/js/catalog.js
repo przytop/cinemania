@@ -30,10 +30,10 @@ document.addEventListener('DOMContentLoaded', async () => {
         totalPages = response.total_pages;
       } else {
         yearSelect.disabled = true;
-        currentPage = 1;
-        const response = await tmdb.getTrendingMoviesTotal('week', currentPage);
+        const response = await tmdb.getTrendingMoviesTotal('week', page);
+        console.log(response);
         movies = response.results;
-        totalPages = 1;
+        totalPages = 5;
       }
 
       loaderCatalog.style.display = 'none';
