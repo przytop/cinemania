@@ -21,6 +21,7 @@
   overflow-y: auto;
   z-index: 999;
   border-radius: 5px;
+  width: 173px;
 }
 
 html[data-theme='light'] #genre {
@@ -112,14 +113,20 @@ html[data-theme='light'] #genre {
 }
 .my-library-button.load {
   margin: 0 auto 40px;
+  transition: all 0.3s;
 }
 .my-library-button.search {
   display: block;
   margin: 20px auto 42px;
+  transition: all 0.3s;
 }
 #my-library-button-load,
 .my-library-sorry {
   display: none;
+}
+.my-library-button.load:hover,
+.my-library-button.search:hover {
+  transform: scale(1.2);
 }
 
 .my-library-sorry-message {
@@ -209,6 +216,14 @@ html[data-theme='light'] #genre {
 }
 
 @media screen and (min-width: 1280px) {
+  #genre {
+    width: 260px;
+  }
+
+  html[data-theme='light'] #genre {
+    width: 260px;
+  }
+
   .genre-form {
     margin-bottom: 48px;
   }

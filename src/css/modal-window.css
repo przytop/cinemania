@@ -369,6 +369,7 @@ html[data-theme='light'] .modal-film-desc {
   text-align: center;
   color: var(--white-color);
   background-color: var(--black-color);
+  transition: all 0.3s;
 }
 html[data-theme='light'] #library-actions-btn {
   color: var(--black-secondary-color);
@@ -387,4 +388,11 @@ html[data-theme='light'] #library-actions-btn {
   height: 40px;
   border-radius: inherit;
   background: linear-gradient(68deg, #ffc226 0%, #f84119 100%);
+}
+
+.watch-trailer-btn:hover,
+#library-actions-btn:hover,
+.watch-trailer-btn:focus,
+#library-actions-btn:focus {
+  transform: scale(1.15);
 }

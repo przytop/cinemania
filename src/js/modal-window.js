@@ -48,9 +48,11 @@ export async function createMovieInfoMarkup(id) {
             />
           </svg>
         </button>
-        <img class="modal-film-poster" src="https://image.tmdb.org/t/p/w500${
+        <img class="modal-film-poster" src="${
           movie.poster_path
-        }" alt="${movie.title} poster"/>
+            ? `https://image.tmdb.org/t/p/w500${movie.poster_path}`
+            : '../img/poster-placeholder.jpg'
+        }"  alt="${movie.title} poster"/>
         <div class="modal-film-infos">
           <h3 class="modal-film-title">${movie.title}</h3>
           <table class="modal-film-stats">

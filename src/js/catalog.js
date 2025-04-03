@@ -31,7 +31,6 @@ document.addEventListener('DOMContentLoaded', async () => {
       } else {
         yearSelect.disabled = true;
         const response = await tmdb.getTrendingMoviesTotal('week', page);
-        console.log(response);
         movies = response.results;
         totalPages = 5;
       }
@@ -92,7 +91,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 
       const card = document.createElement('li');
       card.classList.add('card');
-      card.style.background = `url(https://image.tmdb.org/t/p/w500${movie.poster_path}) center/cover`;
+      card.style.background = movie.poster_path ? `url(https://image.tmdb.org/t/p/w500${movie.poster_path}) center/cover` : 'url(../img/poster-placeholder.jpg) center/cover';;
       card.dataset.id = movie.id;
       card.innerHTML = `
         <div class="card-content">

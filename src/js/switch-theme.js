@@ -5,7 +5,7 @@ function switchTheme() {
   const newTheme =
     root.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
   root.setAttribute('data-theme', newTheme);
-  localStorage.setItem('theme', newTheme); // Save the user's preference
+  localStorage.setItem('theme', newTheme);
 
   switcher.classList.toggle('active');
 }

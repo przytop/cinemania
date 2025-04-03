@@ -183,13 +183,20 @@ html[data-theme='dark'] .modal-oopsie button svg {
   text-align: center;
   color: #111111;
   position: relative;
-  transition: all 0.2s;
+  transition: all 0.3s;
 }
 
 .watch-btn:active,
 .get-started-btn:active {
   transform: translateY(-1px);
   box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+}
+
+.watch-btn:hover,
+.watch-btn:focus,
+.details-btn:hover,
+.details-btn:focus {
+  transform: scale(1.1);
 }
 
 .details-btn {

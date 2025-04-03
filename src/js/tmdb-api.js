@@ -7,7 +7,6 @@ export default class TmdbApi {
       headers: {
         accept: 'application/json',
         Authorization: `Bearer ${import.meta.env.VITE_API_KEY}`, // VITE_API_KEY must be set correctly in environment variables
-        // Authorization: `Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiIxOWZhNTk0Y2Q2ZWRlZDUxZGFlZTA0ODU0NjY1MjdkYiIsIm5iZiI6MTcyMjAzNzc3Mi41NzIxMDMsInN1YiI6IjY2YTE3MjQ1ZTE1OTc2ZWJmYWI4YmYzZSIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.G9xrsM-y8LQuvYrOh8SZI1olRXGF_yNK39ZipUP4QbY`, // For Testing
       },
     });
   }
@@ -68,22 +67,3 @@ export default class TmdbApi {
     return await this._fetch('/configuration/countries');
   }
 }
-
-// For testing
-const tmdb = new TmdbApi();
-const test = async () => {
-  try {
-    console.log(await tmdb.getTrendingMovies('day'));
-    console.log(await tmdb.getTrendingMovies('week'));
-    console.log(await tmdb.getUpcomingMovies());
-    console.log(await tmdb.searchMovie('Dune'));
-    console.log(await tmdb.getMovieDetails(438631));
-    console.log(await tmdb.getMovieVideos(438631));
-    console.log(await tmdb.getMovieGenres());
-    console.log(await tmdb.getCountriesList());
-  } catch (error) {
-    console.error('Test failed:', error);
-  }
-};
-
-// test();
