@@ -40,7 +40,7 @@ document.addEventListener('DOMContentLoaded', async function () {
         card.classList.add('card');
 
         const id = movie.id;
-        const imageUrl = movie.poster_path ? `https://image.tmdb.org/t/p/w500${movie.poster_path}` : "/img/poster-placeholder.jpg";
+        const imageUrl = movie.poster_path ? `https://image.tmdb.org/t/p/w500${movie.poster_path}` : '/img/poster-placeholder.jpg';
         const title = movie.title;
         const releaseDate = movie.release_date
           ? new Date(movie.release_date).getFullYear()
