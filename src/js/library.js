@@ -81,7 +81,7 @@ const createMovieListItem = movie => {
   const rating = Math.round(movie.vote_average * 10) / 10;
   const stars = createStarRating(rating);
 
-  const imageUrl = movie.poster_path ? `https://image.tmdb.org/t/p/w500${movie.poster_path}` : "/img/poster-placeholder.jpg" ;
+  const imageUrl = movie.poster_path ? `https://image.tmdb.org/t/p/w500${movie.poster_path}` : 'poster-placeholder.jpg' ;
   listItem.style.backgroundImage = `url(${imageUrl})`;
   listItem.style.backgroundSize = 'cover';
   listItem.style.backgroundPosition = 'center';
