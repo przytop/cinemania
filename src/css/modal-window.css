@@ -371,6 +371,7 @@ html[data-theme='light'] .modal-film-desc {
   background-color: var(--black-color);
   transition: all 0.3s;
 }
+html[data-theme='light'] .watch-trailer-btn,
 html[data-theme='light'] #library-actions-btn {
   color: var(--black-secondary-color);
   background-color: var(--white-color);
