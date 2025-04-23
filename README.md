@@ -8,7 +8,7 @@ titles, view trailers, and manage their own personal movie library with ease.
 
 ## Preview
 
-![Cinemania](cinemania.gif)
+![Cinemania](./src/public/cinemania.gif)
 
 ## Features
 
