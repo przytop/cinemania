@@ -1,10 +1,14 @@
 # Cinemania
 
-**Cinemania** is a modern, responsive movie website built using **Vite** and
+**Cinemania** is a collaborative group project designed as a modern, responsive movie website built using **[Vite](https://vite.dev/)** and
 powered by data from the
 **[TMDB API](https://developer.themoviedb.org/reference/intro/getting-started)**.
 The site allows users to browse a collection of movies, search for specific
 titles, view trailers, and manage their own personal movie library with ease.
+
+## Preview
+
+![Cinemania](cinemania.gif)
 
 ## Features
 
@@ -44,8 +48,6 @@ titles, view trailers, and manage their own personal movie library with ease.
   Optimized scroll event handling
 - **[modal-video](https://www.npmjs.com/package/modal-video)**: Lightbox modal
   for playing movie trailers
-
-## Screenshots
 
 ## Live Demo
 
